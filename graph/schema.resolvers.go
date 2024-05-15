@@ -28,6 +28,19 @@ func (r *queryResolver) Dogs(ctx context.Context) ([]*model.Dog, error) {
 
 }
 
+// Modifiez vos résolveurs pour inclure la nouvelle mutation createDogs :
+// func (r *mutationResolver) CreateDogs(ctx context.Context, inputs []*model.CreateDogInput) ([]*model.Dog, error) {
+//     var dogs []*model.Dog
+//     for _, input := range inputs {
+//         newDog, err := r.DB.CreateDog(ctx, input)
+//         if err != nil {
+//             return nil, err
+//         }
+//         dogs = append(dogs, newDog)
+//     }
+//     return dogs, nil
+// }
+
 // Mutation returns MutationResolver implementation.
 func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
 

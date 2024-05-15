@@ -48,8 +48,8 @@ func (db *DB) Save(input *model.NewDog) (*model.Dog, error) {
 	}
 
 	return &model.Dog{
-		ID:       res.InsertedID.(primitive.ObjectID).Hex(),
-		Name:     input.Name,
+		ID:        res.InsertedID.(primitive.ObjectID).Hex(),
+		Name:      input.Name,
 		IsGoodBoi: input.IsGoodBoi,
 	}, nil
 }
@@ -59,7 +59,7 @@ func (db *DB) FindByID(id string) (*model.Dog, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	var dog model.Dog
+	var dog bson.M
 	objectId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		return nil, fmt.Errorf("ID invalide: %w", err)
@@ -70,7 +70,21 @@ func (db *DB) FindByID(id string) (*model.Dog, error) {
 		return nil, fmt.Errorf("erreur lors de la récupération du chien: %w", err)
 	}
 
-	return &dog, nil
+	// Convertir ObjectID en string
+	dogID := dog["_id"].(primitive.ObjectID).Hex()
+	dogName := dog["name"].(string)
+
+	// Vérifier si le champ isGoodBoi existe
+	isGoodBoi, ok := dog["isGoodBoi"].(bool)
+	if !ok {
+		isGoodBoi = false // ou une autre valeur par défaut
+	}
+
+	return &model.Dog{
+		ID:        dogID,
+		Name:      dogName,
+		IsGoodBoi: isGoodBoi,
+	}, nil
 }
 
 func (db *DB) ALL() ([]*model.Dog, error) {
@@ -86,11 +100,26 @@ func (db *DB) ALL() ([]*model.Dog, error) {
 
 	var dogs []*model.Dog
 	for cursor.Next(ctx) {
-		var dog model.Dog
+		var dog bson.M
 		if err := cursor.Decode(&dog); err != nil {
 			return nil, fmt.Errorf("erreur lors du décodage du chien: %w", err)
 		}
-		dogs = append(dogs, &dog)
+
+		// Convertir ObjectID en string
+		dogID := dog["_id"].(primitive.ObjectID).Hex()
+		dogName := dog["name"].(string)
+
+		// Vérifier si le champ isGoodBoi existe
+		isGoodBoi, ok := dog["isGoodBoi"].(bool)
+		if !ok {
+			isGoodBoi = false // ou une autre valeur par défaut
+		}
+
+		dogs = append(dogs, &model.Dog{
+			ID:        dogID,
+			Name:      dogName,
+			IsGoodBoi: isGoodBoi,
+		})
 	}
 
 	if err := cursor.Err(); err != nil {

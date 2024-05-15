@@ -16,4 +16,6 @@ input NewDog {
 
 type Mutation {
   createDog(input: NewDog): Dog!
+  # La ling pour ajouter plusieurs dogs en même temp 
+  # createDogs(inputs: [CreateDogInput!]!): [Dog!]! 
 }
