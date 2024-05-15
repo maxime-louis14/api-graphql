@@ -211,4 +211,4 @@ Accédez à `http://localhost:8080/` pour utiliser le playground GraphQL.
 
 ---
 
-Ce guide fournit une introduction simple à GraphQL avec des exemples pratiques de requêtes, de mutations, et de résolveurs. Pour approfondir, consultez la [documentation officielle de GraphQL](https://graphql.org/learn/) et celle de [gqlgen](https://gqlgen.com/).
+Ce guide fournit une introduction simple à GraphQL avec des exemples pratiques de requêtes, de mutations, et de résolveurs. Pour approfondir, consultez la [documentation officielle de GraphQL](https://graphql.org/learn/) celle de [gqlgen](https://gqlgen.com/) et [How to graphql](https://www.howtographql.com/graphql-go/1-getting-started/)
