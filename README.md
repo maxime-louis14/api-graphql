@@ -1,10 +1,10 @@
-# Guide Simple pour GraphQL
+Guide Simple pour GraphQL
 
-## Introduction
+Introduction
 
 GraphQL est un langage de requête pour les APIs et un environnement d'exécution pour les exécuter avec vos données existantes. Il vous permet de demander exactement ce dont vous avez besoin et rien de plus.
 
-## Structure de base d'une API GraphQL
+Structure de base d'une API GraphQL
 
 Une API GraphQL est composée de :
 
@@ -13,7 +13,7 @@ Une API GraphQL est composée de :
 - **Mutation** : Permet de créer, mettre à jour ou supprimer des valeurs.
 - **Resolvers** : Fournissent les fonctions pour remplir les données de votre schéma.
 
-## Exemples
+Exemples
 
 ### Schéma GraphQL
 
